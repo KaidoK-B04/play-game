@@ -1,0 +1,58 @@
+ /* CSS Reset snippet */
+ html, body, div, span, applet, object, iframe,
+ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+ a, abbr, acronym, address, big, cite, code,
+ del, dfn, em, img, ins, kbd, q, s, samp,
+ small, strike, strong, sub, sup, tt, var,
+ b, u, i,
+ center,
+ dl, dt, dd, ol, ul, li,
+ fieldset, form, label, legend,
+ table, caption, tbody, tfoot, thead, tr, th, td,
+ article, aside, canvas, details, embed, 
+ figure, figcaption, footer, header, hgroup, 
+ menu, nav, output, ruby, section, summary,
+ time, mark, audio, video {
+   margin: 0;
+   padding: 0;
+   border: 0;
+   font-size: 100%;
+   font: inherit;
+   vertical-align: baseline;
+ }
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+    background-image: url('moroccan-flower-dark.webp');
+    text-align: center;
+    font-family: "Rammetto One", sans-serif;
+}
+
+ h1 {
+    font-size: 48px;
+    color: goldenrod;
+ }
+p {
+    color: white;
+    font-size: 24px;
+}
+
+ button {
+  color: #016f32;
+  width: 150px;
+  background: goldenrod;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  border-radius: 2px;
+  margin-bottom: 2px;
+  margin-bottom: 10px;
+  border: 1px solid goldenrod;
+  color: rgb(0, 38, 103);
+ }
+ button:hover {
+  cursor: pointer;
+}
