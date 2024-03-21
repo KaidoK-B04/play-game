@@ -56,3 +56,12 @@ p {
  button:hover {
   cursor: pointer;
 }
+
+#image-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+#image-container img {
+  max-height: 100px;
+  margin: 5px;
+}

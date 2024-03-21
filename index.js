@@ -1,3 +1,46 @@
+let imageFiles = [
+  { filename: "./images/ace.png", value: 11 },
+  { filename: "./images/2.png", value: 2 },
+  { filename: "./images/3.png", value: 3 },
+  { filename: "./images/4.png", value: 4 },
+  { filename: "./images/5.png", value: 5 },
+  { filename: "./images/6.png", value: 6 },
+  { filename: "./images/7.png", value: 7 },
+  { filename: "./images/8.png", value: 8 },
+  { filename: "./images/9.png", value: 9 },
+  { filename: "./images/10.png", value: 10 },
+  { filename: "./images/jack10.png", value: 10 },
+  { filename: "./images/queen10.png", value: 10 },
+  { filename: "./images/king10.png", value: 10 },
+  { filename: "./images/back.png", value: 0 }, // Assuming back.png has no value
+];
+
+function displayImages() {
+  // Get the container element
+  let container = document.getElementById("image-container");
+
+  // Loop through the imageFiles array
+  imageFiles.forEach((image) => {
+    // Create an img element
+    let img = document.createElement("img");
+
+    // Set the src attribute to the filename
+    img.src = image.filename;
+
+    // Set the alt attribute to the filename (for accessibility)
+    img.alt = image.filename;
+
+    // Set the data-value attribute to the image value
+    img.setAttribute("data-value", image.value);
+
+    // Append the img element to the container
+    container.appendChild(img);
+  });
+}
+
+// Call the displayImages function to display the images
+displayImages();
+
 let cards = [];
 let sum = 0;
 let hasBlackJack = false;
