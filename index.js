@@ -1,3 +1,12 @@
+let cards = [0, 0];
+let sum = 0;
+let hasBlackJack = false;
+let isAlive = false;
+let message = "";
+let messageEl = document.getElementById("message-el");
+let sumEl = document.getElementById("sum-el");
+let cardsEl = document.getElementById("cards-el");
+let playerEl = document.getElementById("player-el");
 let imageFiles = [
   { filename: "./images/ace.png", value: 11 },
   { filename: "./images/2.png", value: 2 },
@@ -12,77 +21,30 @@ let imageFiles = [
   { filename: "./images/jack10.png", value: 10 },
   { filename: "./images/queen10.png", value: 10 },
   { filename: "./images/king10.png", value: 10 },
-  { filename: "./images/back.png", value: 0 }, // Assuming back.png has no value
 ];
 
-function displayImages() {
-  // Get the container element
-  let container = document.getElementById("image-container");
-
-  // Loop through the imageFiles array
-  imageFiles.forEach((image) => {
-    // Create an img element
-    let img = document.createElement("img");
-
-    // Set the src attribute to the filename
-    img.src = image.filename;
-
-    // Set the alt attribute to the filename (for accessibility)
-    img.alt = image.filename;
-
-    // Set the data-value attribute to the image value
-    img.setAttribute("data-value", image.value);
-
-    // Append the img element to the container
-    container.appendChild(img);
-  });
-}
-
-// Call the displayImages function to display the images
-displayImages();
-
-let cards = [];
-let sum = 0;
-let hasBlackJack = false;
-let isAlive = false;
-let message = "";
-let messageEl = document.getElementById("message-el");
-let sumEl = document.getElementById("sum-el");
-let cardsEl = document.getElementById("cards-el");
-let playerEl = document.getElementById("player-el");
-let player = {
-  name: "User",
-  chips: 200,
-};
-playerEl.textContent = player.name + ": $" + player.chips;
-
-function getRandomCard() {
-  let randomNumber = Math.floor(Math.random() * 13) + 1;
-  if (randomNumber > 10) {
-    return 10;
-  } else if (randomNumber === 1) {
-    return 11;
-  } else {
-    return randomNumber;
-  }
-}
-
-function startGame() {
-  isAlive = true;
-  let firstCard = getRandomCard();
-  let secondCard = getRandomCard();
-  cards = [firstCard, secondCard];
-  sum = firstCard + secondCard;
-  renderGame();
-}
+let backImg = document.createElement("img");
+backImg.src = "./images/back.png";
+backImg.alt = "Card";
+backImg.value = 0;
 
 function renderGame() {
-  cardsEl.textContent = "Cards: ";
-  for (let i = 0; i < cards.length; i++) {
-    cardsEl.textContent += cards[i] + " ";
-  }
+  cardsEl.innerHTML = "";
+
+  cards.forEach((cardValue, index) => {
+    let img = document.createElement("img");
+    if (cardValue === 0) {
+      img.src = backImg.src;
+    } else {
+      let image = imageFiles.find((image) => image.value === cardValue);
+      img.src = image.filename;
+    }
+    img.alt = "Card";
+    cardsEl.appendChild(img);
+  });
 
   sumEl.textContent = "Sum: " + sum;
+
   if (sum <= 20) {
     message = "New card?";
   } else if (sum === 21) {
@@ -95,11 +57,47 @@ function renderGame() {
   messageEl.textContent = message;
 }
 
+renderGame();
+
+function startGame() {
+  isAlive = true;
+  cards = [getRandomCardValue(), getRandomCardValue(), backImg.value];
+  sum = cards[0] + cards[1];
+  renderGame();
+}
+
+function getRandomCardValue() {
+  const randomIndex = Math.floor(Math.random() * imageFiles.length);
+  const randomImg = imageFiles[randomIndex];
+
+  return randomImg.value;
+}
+
 function newCard() {
+  console.log("newCard() called");
+  console.log("Before adding new card:", cards);
+
   if (isAlive === true && hasBlackJack === false) {
-    let card = getRandomCard();
+    let card = getRandomCardValue();
     sum += card;
-    cards.push(card);
+
+    let index = cards.indexOf(0);
+
+    if (index !== -1) {
+      cards.splice(index, 1, card);
+    } else {
+      cards.push(card);
+    }
+
     renderGame();
+    saveGameState();
+
+    console.log("After adding new card:", cards);
   }
 }
+
+let player = {
+  name: "User",
+  chips: 200,
+};
+playerEl.textContent = player.name + ": $" + player.chips;

@@ -56,12 +56,11 @@ p {
  button:hover {
   cursor: pointer;
 }
-
-#image-container {
+#cards-el {
   display: flex;
   flex-wrap: wrap;
 }
-#image-container img {
+#cards-el img {
   max-height: 100px;
   margin: 5px;
 }
